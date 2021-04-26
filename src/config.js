@@ -5,7 +5,7 @@ const dev = {
 }
 const test = {
   // baseUrl: 'http://172.16.115.162:5031/',
-  baseUrl: 'http://192.168.129.16:5031/',
+  baseUrl: 'http://192.168.129.16:5032/',
   // jumpUrl: 'http://10.131.101.56:88/patient-panorama.html' // 全景图跳转
   // http://192.168.129.1/patient-panorama.html?patientId=${patientId}`
   jumpUrl: 'http://192.168.129.1/patient-panorama.html'

@@ -15,8 +15,8 @@ export default new Vuex.Store({
   actions: {
     apiGetDiseaseInfoSelectHCForm ({ commit }) {
       const query = {
-        patient_id: '1',
-        num_hospital: 1
+        patient_id: localStorage.getItem('patientId'),
+        num_hospital: localStorage.getItem('numHospital')
       }
       api.diease360.apiGetDiseaseInfoSelectHC(query).then(res => {
         if (res.status === '1') {

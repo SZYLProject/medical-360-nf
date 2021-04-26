@@ -31,7 +31,7 @@ const actions = {
       desea()
     }
     //
-    function desea(){
+    function desea () {
       commit(TYPES.FULLSCREENLOADING, true)
       commit(TYPES.SETFINISHED)
       api.diease360.apiGetDiseaseInfoSelectHC(param).then(res => {
@@ -51,7 +51,6 @@ const actions = {
         // this.finished = true
       })
     }
-    
   },
   apiPostEdit (context, { query }) {
     context.commit(TYPES.SETSUBMITLOADING, true)
@@ -78,8 +77,8 @@ const actions = {
       })
     } else {
       param = {
-        patient_id: '1',
-        num_hospital: 1,
+        patient_id: localStorage.getItem('patientId'),
+        num_hospital: localStorage.getItem('numHospital'),
         diseaseInfoModel: submitArr,
         disease_name: localStorage.getItem('disease_name')
       }
