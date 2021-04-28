@@ -1,20 +1,20 @@
 <template>
   <div class="header-wrap">
-  <div class="left-wrap">
-    <img src="../static/images/nf-logo.png" alt="">
-    <span class="title-spa">{{headerInfo.title}}</span>
-  </div>
-  <div class="right-wrap" v-if="isShowBack">
+    <div class="left-wrap">
+      <img src="../static/images/nf-logo.png" alt="" />
+      <span class="title-spa">{{ headerInfo.title }}</span>
+    </div>
+    <div class="right-wrap" v-if="isShowBack">
       <el-avatar icon="el-icon-user-solid" class="user-solid-wrap"></el-avatar>
       <el-dropdown trigger="click">
         <span class="el-dropdown-link">
-            {{headerInfo.name}}<i class="el-icon-arrow-down el-icon--right"></i>
+          {{ headerInfo.name }}<i class="el-icon-arrow-down el-icon--right"></i>
         </span>
-        <el-dropdown-menu slot="dropdown" >
-            <el-dropdown-item @click.native="loginOut">登出</el-dropdown-item>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item @click.native="loginOut">登出</el-dropdown-item>
         </el-dropdown-menu>
-        </el-dropdown>
-  </div>
+      </el-dropdown>
+    </div>
   </div>
 </template>
 
@@ -73,9 +73,7 @@ export default {
       } else {
         return {
           kind: '肺癌',
-          options: [
-            { value: '肺癌' }
-          ]
+          options: [{ value: '肺癌' }]
         }
       }
     }
@@ -85,8 +83,14 @@ export default {
       this.$emit('changeTab', tab)
     },
     loginOut () {
-      localStorage.removeItem('token')
-      this.$router.replace('/login')
+      this.$api.login.apiPostUserLogOut().then(res => {
+        if (res.data.status === '0' && res.data.data.returnUrl !== '') {
+          window.location.href = res.data.data.returnUrl
+          localStorage.removeItem('token')
+        }
+      })
+
+      // this.$router.replace('/login')
     },
     onSearchPatient () {
       if (this.isSearch) {
@@ -103,63 +107,63 @@ export default {
 <style lang="scss" scoped>
 @import '../static/style/flexStyle.scss';
 .header-wrap {
-    height: 60px;
-    // background:rgb(35, 53, 75);
-    background:#2b86b2;
-    width: 100%;
-    padding: 0 20px;
-    display: flex;
-    box-sizing: border-box;
-    z-index: 30;
-    justify-content: space-between;
-    .left-wrap {
-      min-width: 100px;
+  height: 60px;
+  // background:rgb(35, 53, 75);
+  background: #2b86b2;
+  width: 100%;
+  padding: 0 20px;
+  display: flex;
+  box-sizing: border-box;
+  z-index: 30;
+  justify-content: space-between;
+  .left-wrap {
+    min-width: 100px;
+    @include flexistyle();
+    justify-content: flex-start;
+    img {
+      height: 70%;
+      width: 15%;
+      padding-right: 30px;
+    }
+  }
+  .right-wrap {
+    min-width: 200px;
+    @include flexistyle();
+    .user-solid-wrap {
+      margin-right: 20px;
+    }
+    .el-dropdown-link {
+      color: #fff;
+      cursor: pointer;
+    }
+  }
+  .middle-wrap {
+    padding-left: 30px;
+    flex: 1;
+    @include flexistyle();
+    justify-content: flex-start;
+    /deep/ .el-input__inner {
+      background-color: rgba(255, 255, 255, 0.2);
+      border: none;
+      color: #fff;
+    }
+    p {
+      height: 100%;
+      padding: 0 20px;
       @include flexistyle();
-      justify-content: flex-start;
-      img {
-            height: 70%;
-            width: 15%;
-            padding-right: 30px;
-        }
+      cursor: pointer;
+      span {
+        color: #fff;
+        font-weight: 600;
+        font-size: 16px;
+      }
     }
-    .right-wrap {
-        min-width: 200px;
-        @include flexistyle();
-        .user-solid-wrap {
-            margin-right: 20px;
-        }
-        .el-dropdown-link {
-            color: #fff;
-            cursor: pointer;
-        }
+    .avtiveTab {
+      background-color: rgba(255, 255, 255, 0.2);
     }
-     .middle-wrap {
-       padding-left: 30px;
-        flex: 1;
-        @include flexistyle();
-        justify-content: flex-start;
-        /deep/ .el-input__inner {
-          background-color: rgba(255,255,255,.2);
-          border: none;
-          color: #fff;
-        }
-        p {
-            height: 100%;
-            padding: 0 20px;
-            @include flexistyle();
-            cursor: pointer;
-            span {
-                color:  #fff;
-                font-weight: 600;
-                font-size: 16px;
-            }
-        }
-        .avtiveTab {
-            background-color: rgba(255,255,255,.2);
-        }
-    }
+  }
 }
-.el-select-dropdown__item.selected span{
-          color: rgb(35,53,75);
-        }
+.el-select-dropdown__item.selected span {
+  color: rgb(35, 53, 75);
+}
 </style>

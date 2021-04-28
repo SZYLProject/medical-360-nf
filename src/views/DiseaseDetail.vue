@@ -46,7 +46,7 @@ export default {
       this.listInfo.title = this.headerInfo.tabs[this.headerInfo.defaultSelect].title
     },
     onPushDetail (item) {
-      localStorage.setItem('userName', item.tpatname)
+      localStorage.setItem('userName', '') // userName添加内容，在360视图左侧显示内容，原是姓名
       localStorage.setItem('patientId', item.patient_id)
       localStorage.setItem('numHospital', item.num_hospital)
 
