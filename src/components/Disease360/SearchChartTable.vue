@@ -1,39 +1,27 @@
 <template>
+  <!-- <！-- 表格里面的数据源 -->
   <div class="chart-table-wrap">
-     <el-table
-      :data="tableData"
-      style="width: 100%">
+    <el-table style="width: 100%" :data="tableData" border stripe>
+      <!--
+      设置表头数据源，并循环渲染出来，property对应列内容的字段名，详情见下面的数据源格式
+      -->
       <el-table-column
-        prop="name"
-        label="姓名"
-        width="180">
+        v-for="info in HeaderData"
+        :key="info.key"
+        :property="info.key"
+        :label="info.label"
+      >
+        <template slot-scope="scope">
+          {{ scope.row[scope.column.property] }}
+          <!-- 渲染对应表格里面的内容 -->
+        </template>
       </el-table-column>
-      <el-table-column
-        prop="id"
-        label="ID"
-        width="180">
-      </el-table-column>
-      <el-table-column
-        prop="disease"
-        label="临床分期"
-        width="180">
-      </el-table-column>
-      <el-table-column
-        prop="abnormal"
-        label="疾病诊断"
-        width="180">
-      </el-table-column>
-      <el-table-column
-        prop="judgment"
-        label="症状">
-      </el-table-column>
-      <el-table-column
-        prop="xs"
-        label="相似度">
-      </el-table-column>
-      <el-table-column
-        label="治疗方案">
-        <template slot-scope="scope"><span class="detail-span" @click="onDetail(scope.row)">查看</span></template>
+      <el-table-column label="患者详情">
+        <template slot-scope="scope"
+          ><span class="detail-span" @click="onDetail(scope.row)"
+            >患者详情</span
+          ></template
+        >
       </el-table-column>
     </el-table>
   </div>
@@ -45,7 +33,13 @@ export default {
   props: {
     tableData: {
       type: Array
+    },
+    HeaderData: {
+      type: Array
     }
+  },
+  data () {
+    return {}
   },
   methods: {
     onDetail (row) {
@@ -59,7 +53,7 @@ export default {
 .chart-table-wrap {
   width: 100%;
   .detail-span {
-    color: #409EFF;
+    color: #409eff;
     cursor: pointer;
   }
 }
