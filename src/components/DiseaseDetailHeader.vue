@@ -1,8 +1,10 @@
 <template>
   <div class="header-wrap">
     <div class="left-wrap">
-      <img src="../static/images/nf-logo.png" alt="" />
-      <span class="title-spa">{{ headerInfo.title }}</span>
+      <img :src="logo" alt="" />
+      <span class="title-spa" style=" width: 220px;">{{
+        headerInfo.title
+      }}</span>
     </div>
     <div class="right-wrap" v-if="isShowBack">
       <el-avatar icon="el-icon-user-solid" class="user-solid-wrap"></el-avatar>
@@ -54,7 +56,10 @@ export default {
       searchForm: {
         search: ''
       },
-      isSearch: false
+      isSearch: false,
+      logo: require(process.env.VUE_APP_LOGOLIST),
+      logoMinWidth: '',
+      logoWidth: ''
     }
   },
   computed: {
@@ -78,7 +83,22 @@ export default {
       }
     }
   },
+  mounted () {
+    console.log(this.logo)
+    this.selectWidth()
+  },
   methods: {
+    selectWidth () {
+      const env = process.env.NODE_ENV
+      console.log(env)
+      if (env == 'devCQ') {
+        this.logoMinWidth = '150px'
+        this.logoWidth = '55%'
+      } else {
+        this.logoMinWidth = '100px'
+        this.logoWidth = '15%'
+      }
+    },
     changeTab (tab) {
       this.$emit('changeTab', tab)
     },
@@ -117,12 +137,12 @@ export default {
   z-index: 30;
   justify-content: space-between;
   .left-wrap {
-    min-width: 100px;
+    min-width: var(logoMinWidth);
     @include flexistyle();
     justify-content: flex-start;
     img {
       height: 70%;
-      width: 15%;
+      width: var(logoWidth);
       padding-right: 30px;
     }
   }
