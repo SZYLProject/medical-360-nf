@@ -16,11 +16,11 @@
             <span>{{ changeTitle }}</span>
             <div>
               <i
-                @click="onChangeComponent({ val: 2, title: '高级检索' })"
+                @click="onChangeComponent({ val: 2, title: '相似病例搜索' })"
                 class="ld-icon"
               ></i>
               <i
-                @click="onChangeComponent({ val: 3, title: 'AI检索' })"
+                @click="onChangeComponent({ val: 3, title: '疾病模板' })"
                 class="ai-icon"
               ></i>
             </div>
@@ -67,6 +67,14 @@
             </div>
           </div>
         </div>
+      </el-tab-pane>
+      <el-tab-pane
+        class="totalPeople"
+        :label="'总相似人数：' + tableData.length + '人'"
+        name=""
+        disabled
+        tab-position="right"
+      >
       </el-tab-pane>
     </el-tabs>
     <div class="mask-wrap shadow" v-show="dialogTableVisible">
@@ -219,7 +227,9 @@ export default {
       diease360
         .similarityCase(param)
         .then(res => {
-          this.tableData = res.data
+          this.tableData = res.data.filter((item, i) => {
+            return parseInt(item.scop) >= 50
+          })
 
           this.tableData.forEach(element => {
             if (element.scop) {
@@ -231,6 +241,24 @@ export default {
           console.log()
         })
     },
+    /*
+     * 根据数组对象属性删除对应项
+     * @param {Array} arr - 数组对象
+     * @param {String} attr - 属性
+     * @param {} value - 属性值
+     * @return void
+     */
+    removeByValue (arr, attr, value) {
+      var index = 0
+      for (var i in arr) {
+        if (arr[i][attr] === value) {
+          index = i
+          break
+        }
+      }
+      arr.splice(index, 1)
+    },
+
     getSimilarityEntity () {
       const param = {
         patient_id: localStorage.getItem('patientId'),
@@ -604,6 +632,10 @@ export default {
   .list-wrap {
     height: 80%;
     background-color: #fff;
+  }
+  /deep/.el-tabs__item.is-disabled {
+    display: inline;
+    left: 300%;
   }
 }
 </style>

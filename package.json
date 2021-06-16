@@ -6,7 +6,8 @@
     "nf": "vue-cli-service serve --mode devNF",
     "cq": "vue-cli-service serve --mode devCQ",
     "start": "vue-cli-service serve --mode production",
-    "build": "vue-cli-service build",
+    "build_nf": "vue-cli-service build  --mode devNF",
+    "build_cq": "vue-cli-service build  --mode devCQ",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {

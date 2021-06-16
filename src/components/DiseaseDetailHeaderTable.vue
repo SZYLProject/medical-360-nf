@@ -72,7 +72,7 @@
           background
           :page-size="10"
           @current-change="onCurrentChange"
-          layout="prev, pager, next"
+          layout="prev, pager, next, total"
           :total="tableDataAll.length"
         >
         </el-pagination>
