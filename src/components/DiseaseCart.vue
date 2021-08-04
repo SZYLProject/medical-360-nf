@@ -1,6 +1,6 @@
 <template>
   <div class="h-card-wrap">
-    <p class="h-card-title-wrap">
+    <p class="h-card-title-wrap" v-if="env !== 'devCQ'">
       <i class="el-icon-first-aid-kit"></i><span>{{ cards.title }}</span>
     </p>
     <div class="card-wrap">
@@ -13,7 +13,7 @@
         :class="[
           'h-w-card box animated bounceIn',
           'margin-left-20',
-          item.url ? 'h-w-card2' : '',
+          item.url ? 'h-w-card2' : ''
         ]"
       >
         <div style="padding: 12px" :class="{ hoverCancel: !item.url }">
@@ -41,7 +41,8 @@ export default {
   },
   data () {
     return {
-      isHoverindex: -1
+      isHoverindex: -1,
+      env: process.env.NODE_ENV
     }
   },
   methods: {
@@ -90,7 +91,7 @@ export default {
     height: 140px;
     cursor: pointer;
     box-sizing: border-box;
-    background: url("../static/images/card1.png") no-repeat;
+    background: url('../static/images/card1.png') no-repeat;
     background-size: cover;
     background-position: center;
     -o-background-size: cover;
@@ -125,7 +126,7 @@ export default {
   }
 
   .h-w-card2 {
-    background: url("../static/images/card2.png") no-repeat;
+    background: url('../static/images/card2.png') no-repeat;
     background-size: cover;
     background-position: center;
     -o-background-size: cover;
