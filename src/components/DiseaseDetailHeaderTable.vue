@@ -70,10 +70,10 @@
       <div class="pagination-wrap">
         <el-pagination
           background
-          :page-size="10"
+          :page-size="pageSize"
           @current-change="onCurrentChange"
           layout="prev, pager, next, total"
-          :total="tableDataAll.length"
+          :total="tableDataAll"
         >
         </el-pagination>
       </div>
@@ -102,7 +102,9 @@ export default {
   },
   data () {
     return {
-      searchForm: {}
+      searchForm: {},
+      pageSize: 10,
+      pageIndex: 1
     }
   },
   computed: {
@@ -113,19 +115,28 @@ export default {
     })
   },
   watch: {
-    tableDataAll (val) {
-      this.$set(this.tableDataAll, val) // 直接修改mapState中值
-    },
-    tableData (val) {
-      this.$set(this.tableData, val)
-    }
+    // tableDataAll (val) {
+    //   this.$set(this.tableDataAll, val) // 直接修改mapState中值
+    // },
+    // tableData (val) {
+    //   this.$set(this.tableData, val)
+    // }
   },
   methods: {
     ...mapMutations({
       SETPAGELIST: 'diseaseEntry/SETPAGELIST'
     }),
     onCurrentChange (val) {
-      this.SETPAGELIST({ currentPage: val })
+      // this.SETPAGELIST({ currentPage: val })
+      this.pageIndex = val
+      // console.log(val)
+      // this.similarityCase()
+      // this.SETPAGELIST({ currentPage: val })
+      this.$store.dispatch('diseaseEntry/apiPostAtientTableSelect', {
+        disease_name: localStorage.getItem('disease_name'),
+        pageSize: this.pageSize,
+        pageIndex: this.pageIndex
+      })
     },
     onPushDetail (item) {
       this.$emit('onPushDetail', item)

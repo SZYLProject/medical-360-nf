@@ -9,7 +9,11 @@ const mutations = {
         const mapItem = listMap.get(ele.department)
         mapItem.children.push(ele)
       } else {
-        listMap.set(ele.department, { id: ele.dep_id, title: ele.department, children: [ele] })
+        listMap.set(ele.department, {
+          id: ele.dep_id,
+          title: ele.department,
+          children: [ele]
+        })
       }
     }
     state.cards = listMap
@@ -18,14 +22,22 @@ const mutations = {
   [TYPES.LOADINGCHANGE] (state) {
     state.loading = false
   },
-  [TYPES.SETTABALEDATA] (state, v) {
-    state.tableDataAll = v
-    state.tableData = state.tableDataAll.slice((state.pageMsg.currentPage - 1) * state.pageMsg.pageSize, state.pageMsg.currentPage * state.pageMsg.pageSize)
+  [TYPES.SETTABALEDATA] (state, res) {
+    state.tableDataAll = res.total
+    state.tableData = res.list || []
+    // state.tableDataAll = v
+    // state.tableData = state.tableDataAll.slice(
+    //   (state.pageMsg.currentPage - 1) * state.pageMsg.pageSize,
+    //   state.pageMsg.currentPage * state.pageMsg.pageSize
+    // )
   },
-  [TYPES.SETPAGELIST] (state, v) {
-    state.pageMsg.currentPage = v.currentPage
-    state.tableData = state.tableDataAll.slice((state.pageMsg.currentPage - 1) * state.pageMsg.pageSize, state.pageMsg.currentPage * state.pageMsg.pageSize)
-  },
+  // [TYPES.SETPAGELIST] (state, v) {
+  //   state.pageMsg.currentPage = v.currentPage
+  //   state.tableData = state.tableDataAll.slice(
+  //     (state.pageMsg.currentPage - 1) * state.pageMsg.pageSize,
+  //     state.pageMsg.currentPage * state.pageMsg.pageSize
+  //   )
+  // },
   [TYPES.STATUESERROY] (state, v) {
     Vue.prototype.$message({
       showClose: true,

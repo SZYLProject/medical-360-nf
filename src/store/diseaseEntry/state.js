@@ -6,7 +6,7 @@ const state = {
   cards: null,
   saveList: [],
   loading: true,
-  tableDataAll: [],
+  tableDataAll: 0,
   tableData: [],
   pageMsg: {
     currentPage: 1,
