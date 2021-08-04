@@ -1,7 +1,16 @@
 <template>
-  <div class="bc-wrap shadow" >
-    <el-breadcrumb separator-class="el-icon-arrow-right" v-if="pathRoutes.length">
-      <el-breadcrumb-item  :replace = 'true' :to="{ path: tab.path }" v-for="(tab, index) in pathRoutes" :key="index">{{tab.title}}</el-breadcrumb-item>
+  <div class="bc-wrap shadow">
+    <el-breadcrumb
+      separator-class="el-icon-arrow-right"
+      v-if="pathRoutes.length"
+    >
+      <el-breadcrumb-item
+        :replace="true"
+        :to="{ path: tab.path }"
+        v-for="(tab, index) in pathRoutes"
+        :key="index"
+        >{{ tab.title }}</el-breadcrumb-item
+      >
     </el-breadcrumb>
   </div>
 </template>
@@ -10,9 +19,10 @@
 import { mapState } from 'vuex'
 export default {
   data () {
-    return {
-
-    }
+    return {}
+  },
+  mounted () {
+    console.log(this.pathRoutes, 'pathRoutes')
   },
   computed: {
     ...mapState(['pathRoutes'])
