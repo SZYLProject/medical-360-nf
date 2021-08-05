@@ -21,7 +21,8 @@
           </el-pagination>
         </div>
       </el-tab-pane>
-      <el-tab-pane label="图表展示" name="chart">
+      <!-- <el-tab-pane label="图表展示" name="chart"> -->
+      <el-tab-pane disabled>
         <div class="chart-wrap chart-wrap-content shadow">
           <div class="search-wrap">
             <span>{{ changeTitle }}</span>
