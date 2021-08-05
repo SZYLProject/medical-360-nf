@@ -9,6 +9,17 @@
             @onDetail="onDetail"
           ></SearchChartTable>
         </div>
+        <!-- 相似病例分页 -->
+        <div class="pagination-wrap">
+          <el-pagination
+            background
+            :page-size="pageSize"
+            @current-change="onCurrentChange"
+            layout="prev, pager, next, total"
+            :total="tableTotal"
+          >
+          </el-pagination>
+        </div>
       </el-tab-pane>
       <el-tab-pane label="图表展示" name="chart">
         <div class="chart-wrap chart-wrap-content shadow">
@@ -198,7 +209,10 @@ export default {
           description: '医生对精一处方权限',
           ifUse: '0'
         }
-      ]
+      ],
+      tableTotal: 0,
+      pageIndex: 1,
+      pageSize: 20
     }
   },
   computed: {
@@ -218,15 +232,24 @@ export default {
     this.getSimilarityEntity()
   },
   methods: {
+    onCurrentChange (val) {
+      this.pageIndex = val
+      console.log(val)
+      this.similarityCase()
+    },
     similarityCase () {
       const param = {
         patient_id: localStorage.getItem('patientId'),
         num_hospital: localStorage.getItem('numHospital'),
-        disease_name: localStorage.getItem('disease_name')
+        disease_name: localStorage.getItem('disease_name'),
+        pageNo: this.pageIndex,
+        pageSize: this.pageSize
       }
       diease360
         .similarityCase(param)
         .then(res => {
+          this.tableTotal = res.total
+
           this.tableData = res.data.filter((item, i) => {
             return parseInt(item.scop) >= 50
           })

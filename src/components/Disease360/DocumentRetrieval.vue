@@ -77,8 +77,8 @@ export default {
     querySearch (queryString, callback) {
       const params = {
         keyword: queryString,
-        // disease_name: localStorage.getItem('disease_name'),
-        disease_name: 'HC',
+        disease_name: localStorage.getItem('disease_name'),
+        // disease_name: 'HC',
         pageNum: 1,
         pageSize: 40
       }
