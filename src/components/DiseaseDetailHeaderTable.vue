@@ -135,16 +135,19 @@ export default {
       this.$store.dispatch('diseaseEntry/apiPostAtientTableSelect', {
         disease_name: localStorage.getItem('disease_name'),
         pageSize: this.pageSize,
-        pageIndex: this.pageIndex
+        pageNo: this.pageIndex
       })
     },
     onPushDetail (item) {
       this.$emit('onPushDetail', item)
     },
     handleIconClick (val) {
+      this.pageIndex = 1
       this.$store.dispatch('diseaseEntry/apiPostAtientTableSelect', {
         disease_name: this.$route.query.disease_name,
-        tpatname: val
+        tpatname: val,
+        pageSize: this.pageSize,
+        pageNo: this.pageIndex
       })
       // const data = {
       //   disease_name: localStorage.getItem('disease_name'),
