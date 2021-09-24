@@ -55,7 +55,16 @@
                 :style="{ width: schild.portion + '%' }"
               >
                 <span class="TNM-label">{{ schild.disease_info_title }}:</span>
-                <span class="padding-23 default-color"
+                <span
+                  v-if="
+                    schild.disease_info_title_value === 'n' ||
+                      schild.disease_info_title_value === 'y'
+                  "
+                  class="padding-23 default-color"
+                  >{{ schild.disease_info_title_value === 'n' ? '否' : '是'
+                  }}{{ schild.disease_info_title_unit }}</span
+                >
+                <span v-else class="padding-23 default-color"
                   >{{ schild.disease_info_title_value
                   }}{{ schild.disease_info_title_unit }}</span
                 >
@@ -427,8 +436,9 @@ export default {
   },
   mounted () {
     console.log(
-      this.diseaseInfo.diseaseInfoModel[4].positionName.split(',')[0].split('-')[0] +
-        '-block',
+      this.diseaseInfo.diseaseInfoModel[4].positionName
+        .split(',')[0]
+        .split('-')[0] + '-block',
       'diseaseInfo.diseaseInfoModel[4].positionName.split(',
       ')[0].split(' - ')[0]+'
     )
